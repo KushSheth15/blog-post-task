@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "1f579e06-137a-460f-b0f1-3f61d38de62e",
+		"name": "Blog-post",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "21052864"
+	},
+	"item": [
+		{
+			"name": "RegisterUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"kush sheth\",\r\n    \"email\":\"kush@gmail.com\",\r\n    \"password\":\"kush#123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:7000/api/register"
+			},
+			"response": []
+		},
+		{
+			"name": "LoginUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"kush@gmail.com\",\r\n    \"password\":\"kush#123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:7000/api/login"
+			},
+			"response": []
+		},
+		{
+			"name": "createPost",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE5NzI3ODQzLCJleHAiOjE3MTk4MTQyNDN9.d3nDvp0COZuo5eoToYsMC_JKey0G-QzUBDpE4koEtbo"
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE5NzI3ODQzLCJleHAiOjE3MTk4MTQyNDN9.d3nDvp0COZuo5eoToYsMC_JKey0G-QzUBDpE4koEtbo",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "postman-cloud:///1ef03027-384b-46b0-9831-79641876d667"
+						},
+						{
+							"key": "title",
+							"value": "abc",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "aaa",
+							"type": "text"
+						},
+						{
+							"key": "category",
+							"value": "bbb",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://localhost:7000/api/create"
+			},
+			"response": []
+		},
+		{
+			"name": "getAllPosts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE5NzI3ODQzLCJleHAiOjE3MTk4MTQyNDN9.d3nDvp0COZuo5eoToYsMC_JKey0G-QzUBDpE4koEtbo",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:7000/api/getAll"
+			},
+			"response": []
+		},
+		{
+			"name": "getPostsById",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE5NzI3ODQzLCJleHAiOjE3MTk4MTQyNDN9.d3nDvp0COZuo5eoToYsMC_JKey0G-QzUBDpE4koEtbo",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:7000/api/5"
+			},
+			"response": []
+		},
+		{
+			"name": "updatePost",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE5NzI3ODQzLCJleHAiOjE3MTk4MTQyNDN9.d3nDvp0COZuo5eoToYsMC_JKey0G-QzUBDpE4koEtbo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Music Night",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "MusicDJ",
+							"type": "text"
+						},
+						{
+							"key": "category",
+							"value": "M1",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "postman-cloud:///1ef02007-962d-4330-8dfd-47a9b1ec9d9b"
+						}
+					]
+				},
+				"url": "http://localhost:7000/api/5"
+			},
+			"response": []
+		},
+		{
+			"name": "deletePost",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE5NzI3ODQzLCJleHAiOjE3MTk4MTQyNDN9.d3nDvp0COZuo5eoToYsMC_JKey0G-QzUBDpE4koEtbo",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:7000/api/4"
+			},
+			"response": []
+		},
+		{
+			"name": "searchPost",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE5NzM3ODQwLCJleHAiOjE3MTk4MjQyNDB9.H195x5CphbTueyaSVOz-n5usLmZ6M2oHAstWovaoR7k",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:7000/api/search?keyword=abc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"api",
+						"search"
+					],
+					"query": [
+						{
+							"key": "keyword",
+							"value": "abc"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
