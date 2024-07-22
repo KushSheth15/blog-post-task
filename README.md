@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a blog management system that allows users to manage blog posts with various features. It includes user authentication, CRUD operations, pagination, image uploads, search functionality, comments, and likes. The system is built using Node.js, Express, and MongoDB.
+This project is a blog management system that allows users to manage blog posts with various features. It includes user authentication, CRUD operations, pagination, image uploads, search functionality, comments, and likes. The system is built using Node.js, Express, and Postgresql and Sequelize ORM.
 
 ## Features
 
