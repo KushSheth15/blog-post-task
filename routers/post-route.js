@@ -1,19 +1,26 @@
 const express = require('express');
-const {createPost,getAllPosts,getPostById,updatePostById,deletePostById,searchPosts} = require('../controllers/post-controller');
+const {createPost,getAllPosts,getPostById,updatePostById,deletePostById,searchAllPosts,createComment,getCommentsByPostId,addLike} = require('../controllers/post-controller');
 const {verifyToken} = require("../middleware/auth-jwt");
+const {POST_ROUTES} = require("../constants/endpoint");
 const router = express.Router();
 const upload  = require('../middleware/upload-image');
 
-router.post('/create', upload.single('image'),verifyToken, createPost);
+router.post(POST_ROUTES.CREATE, upload.single('image'),verifyToken, createPost);
 
-router.get('/getAll',verifyToken, getAllPosts);
+router.get(POST_ROUTES.GET_ALL,verifyToken, getAllPosts);
 
-router.get('/:id',verifyToken, getPostById);
+router.get(POST_ROUTES.GET_BY_ID,verifyToken, getPostById);
 
-router.put('/:id', upload.single('image'),verifyToken, updatePostById);
+router.put(POST_ROUTES.UPDATE_BY_ID, upload.single('image'),verifyToken, updatePostById);
 
-router.delete('/:id',verifyToken, deletePostById);
+router.delete(POST_ROUTES.DELETE_BY_ID,verifyToken, deletePostById);
 
-router.get('/search',verifyToken, searchPosts);
+router.post(POST_ROUTES.SEARCH, searchAllPosts);
+
+router.post(POST_ROUTES.CREATE_COMMENT,verifyToken,createComment);
+
+router.get(POST_ROUTES.GET_COMMENTS, verifyToken, getCommentsByPostId);
+
+router.post(POST_ROUTES.CREATE_LIKE,verifyToken,addLike);
 
 module.exports = router;

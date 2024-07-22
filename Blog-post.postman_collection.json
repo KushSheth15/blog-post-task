@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "1f579e06-137a-460f-b0f1-3f61d38de62e",
+		"_postman_id": "6b80948d-9a75-445a-81b0-5256e224d551",
 		"name": "Blog-post",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "21052864"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36989950"
 	},
 	"item": [
 		{
@@ -13,14 +13,23 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\":\"kush sheth\",\r\n    \"email\":\"kush@gmail.com\",\r\n    \"password\":\"kush#123\"\r\n}",
+					"raw": "{\r\n    \"username\":\"xyz\",\r\n    \"email\":\"xyz@gmail.com\",\r\n    \"password\":\"xyz@1234\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
 					}
 				},
-				"url": "http://localhost:7000/api/register"
+				"url": {
+					"raw": "{{baseUrl}}/users/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"register"
+					]
+				}
 			},
 			"response": []
 		},
@@ -31,14 +40,23 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\":\"kush@gmail.com\",\r\n    \"password\":\"kush#123\"\r\n}",
+					"raw": "{\r\n    \"email\":\"kevin@gmail.com\",\r\n    \"password\":\"kevin@123\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
 					}
 				},
-				"url": "http://localhost:7000/api/login"
+				"url": {
+					"raw": "{{baseUrl}}/users/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
 			},
 			"response": []
 		},
@@ -46,16 +64,13 @@
 			"name": "createPost",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": {
-						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE5NzI3ODQzLCJleHAiOjE3MTk4MTQyNDN9.d3nDvp0COZuo5eoToYsMC_JKey0G-QzUBDpE4koEtbo"
-					}
+					"type": "noauth"
 				},
 				"method": "POST",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE5NzI3ODQzLCJleHAiOjE3MTk4MTQyNDN9.d3nDvp0COZuo5eoToYsMC_JKey0G-QzUBDpE4koEtbo",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzIxMzg5MzQzLCJleHAiOjE3MjE0NzU3NDN9.uUrmQT5UUGReybpCeGHhY1y7AQpPq-gA0vBbRYn-3r0",
 						"type": "text"
 					},
 					{
@@ -71,26 +86,35 @@
 						{
 							"key": "image",
 							"type": "file",
-							"src": "postman-cloud:///1ef03027-384b-46b0-9831-79641876d667"
+							"src": "/C:/Users/Admin/Pictures/Screenshots/Screenshot (1).png"
 						},
 						{
 							"key": "title",
-							"value": "abc",
+							"value": "Second Post",
 							"type": "text"
 						},
 						{
 							"key": "content",
-							"value": "aaa",
+							"value": "India won the T20I WC",
 							"type": "text"
 						},
 						{
 							"key": "category",
-							"value": "bbb",
+							"value": "Cricket",
 							"type": "text"
 						}
 					]
 				},
-				"url": "http://localhost:7000/api/create"
+				"url": {
+					"raw": "{{baseUrl}}/posts/create",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"posts",
+						"create"
+					]
+				}
 			},
 			"response": []
 		},
@@ -101,11 +125,20 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE5NzI3ODQzLCJleHAiOjE3MTk4MTQyNDN9.d3nDvp0COZuo5eoToYsMC_JKey0G-QzUBDpE4koEtbo",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzIxNDU2ODI0LCJleHAiOjE3MjE1NDMyMjR9.0vYJeCIluLZw2Tz9KvI27A8gcWpYMzB6rPeJh_DSeLg",
 						"type": "text"
 					}
 				],
-				"url": "http://localhost:7000/api/getAll"
+				"url": {
+					"raw": "{{baseUrl}}/posts/getAll",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"posts",
+						"getAll"
+					]
+				}
 			},
 			"response": []
 		},
@@ -116,11 +149,20 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE5NzI3ODQzLCJleHAiOjE3MTk4MTQyNDN9.d3nDvp0COZuo5eoToYsMC_JKey0G-QzUBDpE4koEtbo",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzIxMzgzNTAxLCJleHAiOjE3MjE0Njk5MDF9.kmuIJ8fHGtSazIt4huz53wj8njnbOzBDxGtKG1-5ox8",
 						"type": "text"
 					}
 				],
-				"url": "http://localhost:7000/api/5"
+				"url": {
+					"raw": "{{baseUrl}}/posts/2",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"posts",
+						"2"
+					]
+				}
 			},
 			"response": []
 		},
@@ -131,7 +173,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE5NzI3ODQzLCJleHAiOjE3MTk4MTQyNDN9.d3nDvp0COZuo5eoToYsMC_JKey0G-QzUBDpE4koEtbo",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxMzg5NDQ5LCJleHAiOjE3MjE0NzU4NDl9.7IFUXCo6bzQ_i9erOp3y_AhyP6aXFYEVbuV-czuMecg",
 						"type": "text"
 					}
 				],
@@ -156,11 +198,20 @@
 						{
 							"key": "image",
 							"type": "file",
-							"src": "postman-cloud:///1ef02007-962d-4330-8dfd-47a9b1ec9d9b"
+							"src": []
 						}
 					]
 				},
-				"url": "http://localhost:7000/api/5"
+				"url": {
+					"raw": "{{baseUrl}}/posts/3",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"posts",
+						"3"
+					]
+				}
 			},
 			"response": []
 		},
@@ -171,41 +222,149 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE5NzI3ODQzLCJleHAiOjE3MTk4MTQyNDN9.d3nDvp0COZuo5eoToYsMC_JKey0G-QzUBDpE4koEtbo",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxMzg5NDQ5LCJleHAiOjE3MjE0NzU4NDl9.7IFUXCo6bzQ_i9erOp3y_AhyP6aXFYEVbuV-czuMecg",
 						"type": "text"
 					}
 				],
-				"url": "http://localhost:7000/api/4"
+				"url": {
+					"raw": "{{baseUrl}}/posts/3",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"posts",
+						"3"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "searchPost",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE5NzM3ODQwLCJleHAiOjE3MTk4MjQyNDB9.H195x5CphbTueyaSVOz-n5usLmZ6M2oHAstWovaoR7k",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzIxMzgzNTAxLCJleHAiOjE3MjE0Njk5MDF9.kmuIJ8fHGtSazIt4huz53wj8njnbOzBDxGtKG1-5ox8",
 						"type": "text"
 					}
 				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:7000/api/search?keyword=abc",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/posts/search?keyword=Music",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "7000",
 					"path": [
-						"api",
+						"posts",
 						"search"
 					],
 					"query": [
 						{
 							"key": "keyword",
-							"value": "abc"
+							"value": "Music"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addComment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzIxNDU2ODI0LCJleHAiOjE3MjE1NDMyMjR9.0vYJeCIluLZw2Tz9KvI27A8gcWpYMzB6rPeJh_DSeLg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"postId\":2,\r\n    \"content\":\"Nice Blog!! Wohoo!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/posts/createComment",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"posts",
+						"createComment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getComments",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzIxNDU1NzgzLCJleHAiOjE3MjE1NDIxODN9.NqD2TkK-RbtMSRhp_g5q9gmG4ua2tbu8ezP9UA0KyHk",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/posts/getComments/2",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"posts",
+						"getComments",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addLike",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzIxNDU2ODI0LCJleHAiOjE3MjE1NDMyMjR9.0vYJeCIluLZw2Tz9KvI27A8gcWpYMzB6rPeJh_DSeLg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/posts/createLike/2",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"posts",
+						"createLike",
+						"2"
 					]
 				}
 			},

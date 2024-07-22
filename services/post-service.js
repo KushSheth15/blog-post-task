@@ -2,6 +2,8 @@ const { Op } = require("sequelize");
 const db = require("../models/index");
 const Post = db.post;
 const User = db.user;
+const Comment = db.Comment;
+const Like = db.like;
 
 const createPost = async (user, title, content, authorId, publishDate, lastUpdated, category, imageFile) => {
     try {
@@ -9,11 +11,11 @@ const createPost = async (user, title, content, authorId, publishDate, lastUpdat
         let featuredImage = '';
 
         if (imageFile) {
-            featuredImage = imageFile.path; 
+            featuredImage = imageFile.path;
         }
 
         console.log(featuredImage);
-        
+
         const post = await Post.create({
             title,
             content,
@@ -30,19 +32,20 @@ const createPost = async (user, title, content, authorId, publishDate, lastUpdat
     }
 };
 
-const getAllPosts = async(page=1,limit=10)=>{
-    try{
-        const offset = (page-1)*limit;
+const getAllPosts = async (page = 1, limit = 10) => {
+    try {
+        const offset = (page - 1) * limit;
         const posts = await Post.findAll({
             offset,
             limit,
-            include: [{ 
-                model: User, 
-                attributes: ['username','email'] }],
+            include: [{
+                model: User,
+                attributes: ['username', 'email']
+            }],
             order: [['publishDate', 'DESC']]
         });
         return posts;
-    }catch(err){
+    } catch (err) {
         throw err;
     }
 }
@@ -93,23 +96,69 @@ const deletePost = async (postId) => {
 };
 
 const searchPosts = async (search) => {
-    
-    try {
-        const searchFilter = search ? { title: { [Op.iLike]: `%${search}%` } } : {};
 
+    try {
+        
+        const searchFilter = search ? { title: { [Op.iLike]: `%${search}%` } } : {};
+        
         const posts = await Post.findAll({
-            where: {
-                ...searchFilter
-            },
-            include: [{ model: User, attributes: ['username','email'] }],
-            order: [['publishDate', 'DESC']]
+            where: searchFilter,
+            include: [{ model: User, attributes: ['username', 'email'] }],
+            // order: [['publishDate', 'DESC']]
         });
         return posts;
     } catch (err) {
-        console.error('Error searching posts:', err);
+        console.error('Error searching posts:', err.message);
+        console.error('Error stack:', err.stack);
         throw err;
     }
 };
+
+const addComment = async (userId,postId,content) =>{
+    try {
+        const newComment = await Comment.create({
+            userId,
+            postId,
+            content
+        });
+
+        return newComment;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+const getCommentsByPostId = async (postId) => {
+    try {
+        const comments = await Comment.findAll({
+            where: { postId },
+            include: [{ model: User,as:'user', attributes: ['username'] }]
+        });
+        return comments;
+    } catch (error) {
+        throw new Error(error.message);
+    };
+};
+
+const addLike = async (userId,postId)=>{
+    try{
+        const existingLike = await Like.findOne({
+            where: { userId, postId }
+        });
+        if(existingLike){
+            throw new Error('User has already liked this post');
+        };
+
+
+        const newLike = await Like.create({ userId, postId });
+
+        await Post.increment('likesCount', {where:{id:postId}});
+
+        return newLike;
+    }catch (error) {
+        throw new Error(error.message);
+    }
+}
 
 module.exports = {
     createPost,
@@ -117,5 +166,8 @@ module.exports = {
     getPostById,
     updatePost,
     deletePost,
-    searchPosts
+    searchPosts,
+    addComment,
+    getCommentsByPostId,
+    addLike
 }

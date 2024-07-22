@@ -30,9 +30,12 @@ const Post = sequelize.define('posts', {
     featuredImage: {
         type: DataTypes.STRING,
         allowNull: true
+    },
+    likesCount: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
     }
 });
 
 return Post;
-
 };

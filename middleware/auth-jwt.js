@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config/auth-config");
+const expiresIn = process.env.TOKEN_EXPIRATION;
 const db = require("../models/index");
 const User = db.user;
 
@@ -12,7 +13,7 @@ const verifyToken = async (req, res, next) => {
     }
 
     try {
-        const decode = jwt.verify(token, config.secret);
+        const decode = jwt.verify(token, config.secret,expiresIn);
 
         const user = await User.findOne({
             where: { id: decode.id }

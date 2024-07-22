@@ -1,4 +1,4 @@
-const { createPost,getAllPosts,getPostById,updatePost,deletePost,searchPosts } = require('../services/post-service');
+const { createPost, getAllPosts, getPostById, updatePost, deletePost, searchPosts, addComment,getCommentsByPostId,addLike } = require('../services/post-service');
 const db = require("../models/index");
 
 exports.createPost = async (req, res) => {
@@ -69,16 +69,26 @@ exports.getPostById = async (req, res) => {
 };
 
 exports.updatePostById = async (req, res) => {
-    const postId = req.params.id;
-    const { title, content, category } = req.body;
-    const featuredImage = req.file ? req.file.path : null;
-
-    const user = req.user;
-    if (!user || !user.id) {
-        return res.status(400).json({ error: 'Unauthorized - User not authenticated' });
-    }
 
     try {
+        const postId = req.params.id;
+        const { title, content, category } = req.body;
+        const featuredImage = req.file ? req.file.path : null;
+
+        const user = req.user.id;
+        if (!user) {
+            return res.status(400).json({ error: 'Unauthorized - User not authenticated' });
+        }
+
+        const post = await db.post.findByPk(postId);
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        if (user !== post.authorId) {
+            return res.status(403).json({ error: 'You can not Update this post because you are not author' });
+        }
+
         const updatedPost = await updatePost(postId, title, content, category, featuredImage);
         res.status(200).json(updatedPost);
     } catch (err) {
@@ -88,14 +98,24 @@ exports.updatePostById = async (req, res) => {
 };
 
 exports.deletePostById = async (req, res) => {
-    const postId = req.params.id;
-
-    const user = req.user;
-    if (!user || !user.id) {
-        return res.status(400).json({ error: 'Unauthorized - User not authenticated' });
-    }
 
     try {
+        const postId = req.params.id;
+
+        const user = req.user.id;
+        if (!user) {
+            return res.status(400).json({ error: 'Unauthorized - User not authenticated' });
+        }
+
+        const post = await db.post.findByPk(postId);
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        if (user !== post.authorId) {
+            return res.status(403).json({ error: 'You can not delete this post because you are not author' });
+        }
+
         const result = await deletePost(postId);
         res.status(200).json(result);
     } catch (err) {
@@ -104,20 +124,66 @@ exports.deletePostById = async (req, res) => {
     }
 };
 
-exports.searchPosts = async (req, res) => {
-    const keyword = req.query.keyword;
-    
-    const user = req.user;
-    if (!user || !user.id) {
-        return res.status(400).json({ error: 'Unauthorized - User not authenticated' });
-    }
+exports.searchAllPosts = async (req, res) => {
+
 
     try {
+        const keyword = req.query.keyword;
+        console.log('Search keyword:', keyword);
+        // const user = req.user;
+        // if (!user || !user.id) {
+        //     return res.status(400).json({ error: 'Unauthorized - User not authenticated' });
+        // }
+
         const posts = await searchPosts(keyword);
-        
+
         res.status(200).json(posts);
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Failed to search posts' });
+        res.status(500).json({ error: 'Failed to search posts. Please try again later.' });
     }
 };
+
+exports.createComment = async (req, res) => {
+    try {
+        const { postId, content } = req.body;
+        const userId = req.user.id;
+        if (!userId) {
+            return res.status(400).json({ error: 'Unauthorized - User not authenticated' });
+        };
+
+        const comment = await addComment(userId, postId, content);
+        res.status(200).json(comment);
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({ error:error.message });
+    }
+};
+
+exports.getCommentsByPostId = async (req,res) => {
+    try {
+        const {postId} = req.params;
+        const comments = await getCommentsByPostId(postId);
+        res.status(200).json(comments);
+
+    }catch (error) {
+        console.log(error);
+        res.status(400).json({ error: error.message });
+    }
+};
+
+exports.addLike = async (req, res) => {
+    try {
+        const {postId} = req.params;
+        const userId = req.user.id;
+        if (!userId) {
+            return res.status(400).json({ error: 'Unauthorized - User not authenticated' });
+        };
+
+        const likes = await addLike(userId, postId);
+        res.status(200).json({ message: 'Post liked successfully' ,likes});
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
